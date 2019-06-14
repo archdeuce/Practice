@@ -22,12 +22,7 @@ namespace Task_1
 
             Gallery ownGallery = new Gallery("Weeds", worker, plants);
 
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            foreach (var plant in ownGallery.Plants)
-            {
-                ownGallery.Employee.Work(plant);
-            }
+            ownGallery.DoWork();
         }
     }
 }

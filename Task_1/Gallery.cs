@@ -20,5 +20,21 @@ namespace Task_1
             this.Employee = worker;
             this.Plants = plants;
         }
+
+        public void DoWork()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+            foreach (var plant in this.Plants)
+            {
+                Console.WriteLine(new string('-', 60));
+
+                Console.WriteLine($"Worker {Employee.Name} {Employee.Surname} work at gallery.");
+
+                Random rnd = new Random();
+
+                plant.PlantCare(rnd.Next(3), rnd.Next(3));
+            }
+        }
     }
 }
