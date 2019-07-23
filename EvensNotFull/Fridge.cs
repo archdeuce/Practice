@@ -66,9 +66,6 @@ namespace EvensNotFull
                 this.MainDoorState = DoorState.close;
             else
                 this.MainDoorState = DoorState.open;
-
-            Console.WriteLine("Main door changed.\n");
-
         }
 
         protected virtual void OnFridge(object sender, FridgeEventArgs e)
