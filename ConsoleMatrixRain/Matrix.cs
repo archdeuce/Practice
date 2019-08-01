@@ -62,7 +62,7 @@ namespace ConsoleMatrixRain
                 //
                 if (this.vPos >= 0 &&
                     this.vPos < Config.VPosMax)
-                    this.DrawSymbol(this.hPos, this.vPos, Config.firstNodeColor);
+                    this.DrawSymbol(this.hPos, this.vPos, Config.FirstNodeColor);
 
                 //
                 // Draw the second node.
@@ -71,7 +71,7 @@ namespace ConsoleMatrixRain
 
                 if (secondNodePosition < Config.VPosMax &&
                     secondNodePosition >= 0)
-                    this.DrawSymbol(this.hPos, secondNodePosition, Config.secondNodeColor);
+                    this.DrawSymbol(this.hPos, secondNodePosition, Config.SecondNodeColor);
 
                 //
                 // Drawing the rest of the nodes.
@@ -81,7 +81,7 @@ namespace ConsoleMatrixRain
                     int currentNode = vPos - i;
 
                     if (currentNode < Config.VPosMax && currentNode >= 0)
-                        this.DrawSymbol(this.hPos, currentNode, Config.otherNodeColor);
+                        this.DrawSymbol(this.hPos, currentNode, Config.OtherNodeColor);
                 }
 
                 //
@@ -151,8 +151,8 @@ namespace ConsoleMatrixRain
         {
             while (true)
             {
-                if (randomSymbol <= Config.startSymbolRange || randomSymbol >= Config.endSymbolRange)
-                    randomSymbol = Config.startSymbolRange;
+                if (randomSymbol <= Config.StartSymbolRange || randomSymbol >= Config.EndSymbolRange)
+                    randomSymbol = Config.StartSymbolRange;
 
                 return (char)randomSymbol++;
             }

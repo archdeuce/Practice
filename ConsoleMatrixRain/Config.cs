@@ -17,9 +17,9 @@ namespace ConsoleMatrixRain
         //
         // Set the colors of the nodes.
         //
-        public const string firstNodeColor = "white";
-        public const string secondNodeColor = "lightgreen";
-        public const string otherNodeColor = "darkgreen";
+        public const string FirstNodeColor = "white";
+        public const string SecondNodeColor = "lightgreen";
+        public const string OtherNodeColor = "darkgreen";
 
         //
         // Chain size range. Indicated in symbols.
@@ -47,8 +47,8 @@ namespace ConsoleMatrixRain
         // Letters and symbols [33 - 128].
         // Large letters [65 - 91].
         //
-        public const int startSymbolRange = 33;
-        public const int endSymbolRange = 128;
+        public const int StartSymbolRange = 33;
+        public const int EndSymbolRange = 128;
 
         //
         // Spacing between columns. Indicated in symbols.
