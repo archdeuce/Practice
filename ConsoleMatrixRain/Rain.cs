@@ -9,20 +9,20 @@ namespace ConsoleMatrixRain
 {
     public static class Rain
     {
-        public static void MatrixRain(int menuChoiceThree = 0)
+        public static void MatrixRain(int menuChoice = 0)
         {
             int spaceBetweenColumns = 0;
 
-            if (menuChoiceThree == 0)
+            if (menuChoice == 0)
                 new Matrix(0, 0).SingleChain();
             else
             {
-                if (menuChoiceThree == 1)
+                if (menuChoice == 1)
                     spaceBetweenColumns = Config.spaceBetweenColumns;
                 else
                     spaceBetweenColumns = Config.spaceBetweenColumns * 2;
 
-                for (int row = 0; row < 120; row += spaceBetweenColumns)
+                for (int row = 0; row < Config.HPosMax; row += spaceBetweenColumns)
                 {
                     //
                     // A slight pause before starting the stream to get a more random starting vertical position.
@@ -39,7 +39,7 @@ namespace ConsoleMatrixRain
                     //
                     // Run the second chain in the same column with an offset, if necessary.
                     //
-                    if (menuChoiceThree == 2)
+                    if (menuChoice == 2)
                     {
                         int vPosSecondChain = (vPosFirstChain + 15) % 30;
 

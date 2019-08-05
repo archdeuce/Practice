@@ -28,7 +28,7 @@ namespace ConsoleMatrixRain
         // The recommended maximum length should not exceed the size of the vertical size of the console.
         //
         public const int MinChainLength = 3;
-        public const int MaxChainLength = 7;
+        public const int MaxChainLength = 8;
 
         //
         // Speed ​​range. Specified in milliseconds.

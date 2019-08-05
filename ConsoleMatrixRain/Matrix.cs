@@ -15,6 +15,18 @@ namespace ConsoleMatrixRain
         private int vPos;
 
         //
+        // Current vertical position of the tail and second node.
+        //
+        private int tailPosition;
+        private int secondNodePosition;
+
+        //
+        // Dimensions and speed of the chain of symbols.
+        //
+        private int chainLength;
+        private int chainSpeed;
+
+        //
         // Cell for storing a pseudo-random symbol.
         //
         private static int randomSymbol;
@@ -40,10 +52,8 @@ namespace ConsoleMatrixRain
         {
             this.StartupTimeout();
 
-            int chainLength = GetRandomChainLength();
-            int chainSpeed = GetRandomChainSpeed();
-
-            this.StartupTimeout();
+            this.chainLength = this.GetRandomChainLength();
+            this.chainSpeed = this.GetRandomChainSpeed();
 
             //
             // Endless rendering of a vertical chain of symbols.
@@ -53,9 +63,9 @@ namespace ConsoleMatrixRain
                 Thread.Sleep(chainSpeed);
 
                 //
-                // Vertical tail position of the chain.
+                // Tail position.
                 //
-                int tailPosition = this.vPos - chainLength;
+                this.tailPosition = this.vPos - this.chainLength;
 
                 //
                 // Draw the first node.
@@ -67,27 +77,32 @@ namespace ConsoleMatrixRain
                 //
                 // Draw the second node.
                 //
-                int secondNodePosition = this.vPos - 1;
+                this.secondNodePosition = this.vPos - 1;
 
-                if (secondNodePosition < Config.VPosMax &&
-                    secondNodePosition >= 0)
-                    this.DrawSymbol(this.hPos, secondNodePosition, Config.SecondNodeColor);
+                if (this.secondNodePosition >= 0 &&
+                    this.secondNodePosition < Config.VPosMax)
+                    this.DrawSymbol(this.hPos, this.secondNodePosition, Config.SecondNodeColor);
 
                 //
                 // Drawing the rest of the nodes.
                 //
-                for (int i = 2; i < chainLength; i++)
+                for (int i = 2; i < this.chainLength; i++)
                 {
                     int currentNode = vPos - i;
 
-                    if (currentNode < Config.VPosMax && currentNode >= 0)
+                    if (currentNode >= 0 &&
+                        currentNode < Config.VPosMax)
                         this.DrawSymbol(this.hPos, currentNode, Config.OtherNodeColor);
+                    else
+                        break;
+
                 }
 
                 //
                 // Clear unnecessary positions behind the string of symbols in the console at each offset.
                 //
-                if (tailPosition >= 0 && tailPosition < Config.VPosMax)
+                if (this.tailPosition >= 0 &&
+                    this.tailPosition < Config.VPosMax)
                     this.DrawSymbol(this.hPos, tailPosition, "null", ' ');
 
                 //
@@ -98,13 +113,11 @@ namespace ConsoleMatrixRain
                 //
                 // After a full cycle of symbols passing through the column, we change the length of the chain and the speed of movement of the chain of symbols.
                 //
-                if (tailPosition >= Config.VPosMax)
+                if (this.tailPosition >= Config.VPosMax)
                 {
-                    chainLength = GetRandomChainLength();
-                    chainSpeed = GetRandomChainSpeed();
+                    this.chainLength = this.GetRandomChainLength();
+                    this.chainSpeed = this.GetRandomChainSpeed();
                     this.vPos = 0;
-
-                    continue;
                 }
             }
         }
@@ -112,7 +125,7 @@ namespace ConsoleMatrixRain
         //
         // Draw characters by the set color and position.
         //
-        public void DrawSymbol(int hPos, int vPos, string color, char symbol = (char)0)
+        private void DrawSymbol(int x, int y, string color, char symbol = (char)0)
         {
             //
             // Block access to the console until we draw the current chain completely.
@@ -135,23 +148,24 @@ namespace ConsoleMatrixRain
                         break;
                 }
 
-                Console.SetCursorPosition(hPos, vPos);
+                Console.SetCursorPosition(x, y);
 
                 if (symbol == ' ')
                     Console.Write(' ');
                 else
-                    Console.Write(GetRandomSymbol());
+                    Console.Write(this.GetRandomSymbol());
             }
         }
 
         //
         // Generate a pseudo-random symbol.
         //
-        public static char GetRandomSymbol()
+        private char GetRandomSymbol()
         {
             while (true)
             {
-                if (randomSymbol <= Config.StartSymbolRange || randomSymbol >= Config.EndSymbolRange)
+                if (randomSymbol <= Config.StartSymbolRange ||
+                    randomSymbol >= Config.EndSymbolRange)
                     randomSymbol = Config.StartSymbolRange;
 
                 return (char)randomSymbol++;
@@ -161,7 +175,7 @@ namespace ConsoleMatrixRain
         //
         // Generate a random string length.
         //
-        public int GetRandomChainLength()
+        private int GetRandomChainLength()
         {
             return new Random().Next(Config.MinChainLength, Config.MaxChainLength);
         }
@@ -169,7 +183,7 @@ namespace ConsoleMatrixRain
         //
         // Generation of random speed of movement of a string of characters.
         //
-        public int GetRandomChainSpeed()
+        private int GetRandomChainSpeed()
         {
             return new Random().Next(Config.MinSpeed, Config.MaxSpeed);
         }
@@ -177,7 +191,7 @@ namespace ConsoleMatrixRain
         //
         // Generate a random delay before starting the movement of a string of characters.
         //
-        public void StartupTimeout()
+        private void StartupTimeout()
         {
             Thread.Sleep(new Random().Next(Config.MinTimeout, Config.MaxTimeout));
         }
